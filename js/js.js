@@ -5,6 +5,7 @@ var functions = {};
 functions.start = function() {
 	functions.renderGrid();
 	functions.renderBoto();
+	functions.enableCompass();
 };
 
 functions.renderGrid = function() {
@@ -33,26 +34,43 @@ functions.renderBoto = function() {
 }
 
 functions.moveBoto = function() {
-	//console.log(this)
+
 	var boto = this;
 	var direction = content.direction;
 	var position = boto.getBoundingClientRect();
-	var x = position.left;
-	var y = position.top;
-	// So what is the best way to move this. First, get it's current position, and then I can either remove it and add it to something new, but there is perhaps a better way to be doing this. I.e. I can kind of transition the x and y coordinates of this, perhaps in a manner which is similar to the paint program. I think changing the x and y coordinates of it may be a kind of good thing. So if there is a way to get this from the js, then this would be pretty good and then I could manipulate this. 
+	var x = parseInt(boto.style.left);
+	var y = parseInt(boto.style.top);
 	if (direction == 'north') {
-		boto.style.top = y + 100 + 'px';
+		boto.style.top = y - 100 + 'px';
 	}else if (direction == 'east'){
 		boto.style.left = x + 100 +'px';
 	} else if (direction == 'south'){
-		boto.style.top = y - 100 + 'px'; 
+		boto.style.top = y + 100 + 'px'; 
 	} else {
 		boto.style.left = x - 100 + 'px';
 	}
 }
 
 content = {};
-content.direction = 'north';
+content.direction = 'east';
 
+functions.enableCompass = function() {
+	var directions = document.getElementsByClassName('dir');
+	for (var i = 0; i < directions.length; i++) {
+		directions[i].addEventListener('click', functions.changeDirection)
+	}
 
+}
+
+functions.changeDirection = function() {
+	if (this.innerText == 'N') {
+		content.direction = 'north'; 
+	} else if (this.innerText == 'E') {
+		content.direction = 'east';
+	} else if (this.innerText == 'S'){
+		content.direction = 'south';	
+	} else {
+		content.direction = 'west';
+	}
+}
 functions.start();
