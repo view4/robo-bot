@@ -34,40 +34,62 @@ functions.renderBoto = function() {
 }
 
 functions.moveBoto = function() {
-
 	var boto = this;
 	var direction = content.direction;
-	var position = boto.getBoundingClientRect();
 	var x = parseInt(boto.style.left);
 	var y = parseInt(boto.style.top);
+
 	if (direction == 'north') {
-		boto.style.top = y - 100 + 'px';
+		y -= 100;
 	}else if (direction == 'east'){
-		boto.style.left = x + 100 +'px';
+		x += 100;
 	} else if (direction == 'south'){
-		boto.style.top = y + 100 + 'px'; 
+		y += 100; 
 	} else {
-		boto.style.left = x - 100 + 'px';
+		x -= 100;
+	}
+
+	if(y < 0 || y > 500 || x < 0 || x > 500){
+		return 
+	} else {
+		boto.style.top = y + 'px';
+		boto.style.left = x+ 'px'
 	}
 }
 
 content = {};
-content.direction = 'north';
+content.direction = 'south';
 
 functions.enableCompass = function() {
 	var directions = document.getElementsByClassName('dir');
 	for (var i = 0; i < directions.length; i++) {
-		directions[i].addEventListener('click', functions.changeDirection)
-	}
-
+		directions[i].addEventListener('click', functions.changeDirection);
+	};
 }
 
 functions.changeDirection = function() {
 	content.direction = this.id;
 	var activeDirection = document.getElementsByClassName('active')[0];
-	console.log(activeDirection);
-	activeDirection.className = 'dir'
+	activeDirection.className = 'dir';
 	this.classList.add('active');
+	
+	functions.changeBotoRotation();
+}
+
+functions.changeBotoRotation = function() {
+	var direction = content.direction;
+	var boto = document.getElementsByClassName('boto')[0];
+
+	if (direction == 'north') {
+		boto.style.transform = 'rotate(180deg)';
+	}else if (direction == 'east'){
+		boto.style.transform = 'rotate(270deg)';
+	} else if (direction == 'south'){
+		boto.style.transform = 'rotate(0deg)';
+	} else {
+		boto.style.transform = 'rotate(90deg)';
+	}
+
 }
 functions.start();
 
