@@ -27,8 +27,8 @@ functions.renderBoto = function() {
 	var boto = document.createElement('div');
 	boto.classList.add('boto');
 	table.appendChild(boto);
-	boto.style.left = '232px'
-	boto.style.top = '232px'
+	boto.style.left = '220px'
+	boto.style.top = '220px'
 	
 	boto.addEventListener('click', functions.moveBoto);
 }
@@ -52,7 +52,7 @@ functions.moveBoto = function() {
 }
 
 content = {};
-content.direction = 'east';
+content.direction = 'north';
 
 functions.enableCompass = function() {
 	var directions = document.getElementsByClassName('dir');
@@ -63,14 +63,37 @@ functions.enableCompass = function() {
 }
 
 functions.changeDirection = function() {
-	if (this.innerText == 'N') {
-		content.direction = 'north'; 
-	} else if (this.innerText == 'E') {
-		content.direction = 'east';
-	} else if (this.innerText == 'S'){
-		content.direction = 'south';	
-	} else {
-		content.direction = 'west';
-	}
+	content.direction = this.id;
+	var activeDirection = document.getElementsByClassName('active')[0];
+	console.log(activeDirection);
+	activeDirection.className = 'dir'
+	this.classList.add('active');
 }
 functions.start();
+
+
+/* 
+To do: 
+
+- add images
+	- fear the L-rd
+	- connect with meaning. 
+	- do not make a graven image -> it does not have to be perfect. 
+	- care for others. 
+- transform images on direction change 
+	- fear the L-rd
+	- speak of them
+	- woorship Him. 
+- limit the boto to only within the grid. 
+	- connect with meaning
+	- do not murder
+	- cleave to Him
+- review and improve:
+	- eat be sated, 
+	do not eat the sinew of the thigh 
+	- i am the L-rd
+	- add fringes to the corner of your garments. 
+
+- I can submit the application before making any final changes
+
+*/
